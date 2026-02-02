@@ -1,0 +1,27 @@
+
+[ defaults ]
+; nbfunc    comb-rule    gen-pairs      fudgeLJ      fudgeQQ
+       1            3          yes          0.5          0.5
+
+
+
+#include "system.ff/forcefield.itp"
+
+; Include the molecule ITP
+#include "system.ff/CNP.itp"
+#include "system.ff/tip3p.itp"
+#include "system.ff/THF_qforce.itp"
+#include "system.ff/AA.itp"
+#include "system.ff/HA.itp"
+#include "system.ff/H3O.itp"
+#include "system.ff/HA_h.itp"
+
+[ system ]
+;   name
+CNP_s 010 
+
+[ molecules ]
+; compound    n_mol
+  CNP          3888
+  SOL          75616
+  AA           136

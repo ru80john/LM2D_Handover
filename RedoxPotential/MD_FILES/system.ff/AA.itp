@@ -1,0 +1,196 @@
+;
+;	File 'AA.top' was generated
+;	By user: ru80john (1003)
+;	On host: hpc-head01
+;	At date: Mon Apr 15 17:36:59 2024
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	           :-) GROMACS - gmx pdb2gmx, 2019.6 (double precision) (-:
+;	
+;	Executable:   /home/pkg/application/gromacs/2019.6/bin/gmx_d
+;	Data prefix:  /home/pkg/application/gromacs/2019.6
+;	Working dir:  /home/ru80john/work/MATERIALS_LIBRARY/LIBRARY/AA/FORCEFIELD
+;	Command line:
+;	  gmx_d pdb2gmx -f /home/ru80john/work/MATERIALS_LIBRARY/LIBRARY/AA/STRUCTURE/AA.pdb -ff AA -p AA.top -o AA.gro
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+;#include "./AA.ff/forcefield.itp"
+
+[ moleculetype ]
+; Name            nrexcl
+ AA               3
+
+[ atoms ]
+;   nr       type  resnr residue  atom   cgnr     charge       mass  typeB    chargeB      massB
+; residue   1 DON rtp DON  q  0.0
+     1      AA_C1      1    DON     C1      1     0.5325    12.0107
+     2      AA_O1      1    DON     O1      2   -0.26796    15.9994
+     3      AA_C2      1    DON     C2      3    0.05715    12.0107
+     4      AA_C3      1    DON     C3      4    0.15032    12.0107
+     5      AA_C4      1    DON     C4      5   -0.04536    12.0107
+     6      AA_H1      1    DON     H1      6    0.06803    1.00794
+     7      AA_O2      1    DON     O2      7   -0.48554    15.9994
+     8      AA_O3      1    DON     O3      8   -0.44006    15.9994
+     9      AA_H2      1    DON     H2      9    0.40469    1.00794
+    10      AA_O4      1    DON     O4     10   -0.43363    15.9994
+    11      AA_H3      1    DON     H3     11    0.40438    1.00794
+    12      AA_C5      1    DON     C5     12    0.13574    12.0107
+    13      AA_H4      1    DON     H4     13    0.06615    1.00794
+    14      AA_O5      1    DON     O5     14   -0.51538    15.9994
+    15      AA_H5      1    DON     H5     15    0.36762    1.00794
+    16      AA_C6      1    DON     C6     16    0.02688    12.0107
+    17      AA_H6      1    DON     H6     17    0.05719    1.00794
+    18      AA_H7      1    DON     H7     18    0.05719    1.00794
+    19      AA_O6      1    DON     O6     19   -0.50241    15.9994
+    20      AA_H8      1    DON     H8     20     0.3625    1.00794   ; qtot 0
+
+[ bonds ]
+;  ai    aj funct            c0            c1            c2            c3
+    1     2     1 
+    1     5     1 
+    1     7     1 
+    2     3     1 
+    3     4     1 
+    3     6     1 
+    3    12     1 
+    4     5     1 
+    4    10     1 
+    5     8     1 
+    8     9     1 
+   10    11     1 
+   12    13     1 
+   12    14     1 
+   12    16     1 
+   14    15     1 
+   16    17     1 
+   16    18     1 
+   16    19     1 
+   19    20     1 
+
+[ pairs ]
+;  ai    aj funct            c0            c1            c2            c3
+    1     6     1 
+    1     9     1 
+    1    10     1 
+    1    12     1 
+    2     8     1 
+    2    10     1 
+    2    13     1 
+    2    14     1 
+    2    16     1 
+    3     7     1 
+    3     8     1 
+    3    11     1 
+    3    15     1 
+    3    17     1 
+    3    18     1 
+    3    19     1 
+    4     7     1 
+    4     9     1 
+    4    13     1 
+    4    14     1 
+    4    16     1 
+    5     6     1 
+    5    11     1 
+    5    12     1 
+    6    10     1 
+    6    13     1 
+    6    14     1 
+    6    16     1 
+    7     8     1 
+    8    10     1 
+   10    12     1 
+   12    20     1 
+   13    15     1 
+   13    17     1 
+   13    18     1 
+   13    19     1 
+   14    17     1 
+   14    18     1 
+   14    19     1 
+   15    16     1 
+   17    20     1 
+   18    20     1 
+
+[ angles ]
+;  ai    aj    ak funct            c0            c1            c2            c3
+    2     1     5     1 
+    2     1     7     1 
+    5     1     7     1 
+    1     2     3     1 
+    2     3     4     1 
+    2     3     6     1 
+    2     3    12     1 
+    4     3     6     1 
+    4     3    12     1 
+    6     3    12     1 
+    3     4     5     1 
+    3     4    10     1 
+    5     4    10     1 
+    1     5     4     1 
+    1     5     8     1 
+    4     5     8     1 
+    5     8     9     1 
+    4    10    11     1 
+    3    12    13     1 
+    3    12    14     1 
+    3    12    16     1 
+   13    12    14     1 
+   13    12    16     1 
+   14    12    16     1 
+   12    14    15     1 
+   12    16    17     1 
+   12    16    18     1 
+   12    16    19     1 
+   17    16    18     1 
+   17    16    19     1 
+   18    16    19     1 
+   16    19    20     1 
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3            c4            c5
+    2     3    12    14     8 
+    3     4    10    11     8 
+    1     5     8     9     8 
+    3    12    14    15     8 
+   14    12    16    19     8 
+   12    16    19    20     8 
+
+[ dihedrals ]
+;  ai    aj    ak    al funct            c0            c1            c2            c3
+    1     5     4     3     2 
+    1     2     3     4     2 
+    1     2     3     6     2 
+    1     5     4    10     2 
+    1     2     3    12     2 
+    2     1     5     4     2 
+    2     3     4     5     2 
+    2     1     5     8     2 
+    2     3     4    10     2 
+    3     2     1     5     2 
+    3     2     1     7     2 
+    3     4     5     8     2 
+    4     5     1     7     2 
+    5     4     3     6     2 
+    5     4     3    12     2 
+    6     3     4    10     2 
+    7     1     5     8     2 
+    8     5     4    10     2 
+   10     4     3    12     2 
+
+; Include Position restraint file
+#ifdef POSRES
+#include "posre.itp"
+#endif
+
+;[ system ]
+;; Name
+;AA.log
+;
+;[ molecules ]
+;; Compound        #mols
+;Other               1

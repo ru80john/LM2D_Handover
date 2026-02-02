@@ -1,0 +1,79 @@
+[bondedtypes]
+;bonds angles dihedrals impropers
+ 1      1       8       2
+[DON]
+ [ atoms ]
+  C1    AA_C1          0.53250   1
+  O1    AA_O1         -0.26796   2
+  C2    AA_C2          0.05715   3
+  C3    AA_C3          0.15032   4
+  C4    AA_C4         -0.04536   5
+  H1    AA_H1          0.06803   6
+  O2    AA_O2         -0.48554   7
+  O3    AA_O3         -0.44006   8
+  H2    AA_H2          0.40469   9
+  O4    AA_O4         -0.43363   10
+  H3    AA_H3          0.40438   11
+  C5    AA_C5          0.13574   12
+  H4    AA_H4          0.06615   13
+  O5    AA_O5         -0.51538   14
+  H5    AA_H5          0.36762   15
+  C6    AA_C6          0.02688   16
+  H6    AA_H6          0.05719   17
+  H7    AA_H7          0.05719   18
+  O6    AA_O6         -0.50241   19
+  H8    AA_H8          0.36250   20
+
+ [bonds]
+   C1	O1
+   C1	C4
+   C1	O2
+   O1	C2
+   C2	C3
+   C2	H1
+   C2	C5
+   C3	C4
+   C3	O4
+   C4	O3
+   O3	H2
+   O4	H3
+   C5	H4
+   C5	O5
+   C5	C6
+   O5	H5
+   C6	H6
+   C6	H7
+   C6	O6
+   O6	H8
+
+ [dihedrals]
+   O1	C2	C5	O5
+   C2	C3	O4	H3
+   C1	C4	O3	H2
+   C2	C5	O5	H5
+   O5	C5	C6	O6
+   C5	C6	O6	H8
+
+ [impropers]
+   C4	C1	O1	C2
+   O2	C1	O1	C2
+   O1	C1	C4	C3
+   O1	C1	C4	O3
+   O2	C1	C4	C3
+   O2	C1	C4	O3
+   C1	O1	C2	C3
+   C1	O1	C2	H1
+   C1	O1	C2	C5
+   O1	C2	C3	C4
+   O1	C2	C3	O4
+   H1	C2	C3	C4
+   H1	C2	C3	O4
+   C5	C2	C3	C4
+   C5	C2	C3	O4
+   C2	C3	C4	C1
+   C2	C3	C4	O3
+   O4	C3	C4	C1
+   O4	C3	C4	O3
+
+
+   

@@ -1,0 +1,50 @@
+[bondedtypes]
+;bonds angles dihedrals impropers
+ 1      1       3       2
+
+[BEN]
+ [atoms]
+; names type charge chargegroup
+; 55 start
+    CBZ   CBZ	 0.192389	1
+    C1    C     -0.174837	1
+    C5    C     -0.170607	1
+    C2    C     -0.078961	1
+    H1    H      0.124768	1
+    C4    C     -0.077280	1
+    H5    H      0.123165	1
+    C3    C     -0.097792	1
+    H2    H      0.107139	1
+    H4    H      0.106886	1
+    H3    H      0.105792	1
+
+ [bonds]
+   CBZ  C1
+   C1   C2
+   C2   C3
+   C3   C4
+   C4   C5
+   C5   CBZ
+
+   C1   H1
+   C2   H2
+   C3   H3
+   C4   H4
+   C5   H5
+
+   CBZ   -NCB
+
+ [impropers]
+   CBZ  C1   C2   C3
+   C1   C2   C3   C4
+   C2   C3   C4   C5
+   C3   C4   C5   CBZ
+   C4   C5   CBZ  C1
+   C5   CBZ  C1   C2
+
+   CBZ  C1   C5   -NCB
+   C1   C2   CBZ  H1
+   C2   C3   C1   H2
+   C3   C4   C2   H3
+   C4   C5   C3   H4
+   C5   CBZ  C4   H5

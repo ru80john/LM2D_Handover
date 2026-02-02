@@ -1,0 +1,262 @@
+<topology>
+	<molecules>
+		<molecule>
+			<name>CNP</name>
+			<mdname>CNP</mdname>
+			<segments>
+				<segment>
+					<name>CNP</name>
+					<qmcoords>QC_FILES/CNP.xyz</qmcoords>
+					<orbitals>QC_FILES/your_file_with.fort7</orbitals>
+					<basisset>INDO</basisset>
+					<torbital_h>number_of_electrons,150</torbital_h>
+					<U_cC_nN_h>0.0000</U_cC_nN_h>
+					<U_nC_nN_h>0.0000</U_nC_nN_h>
+					<U_cN_cC_h>0.0000</U_cN_cC_h>
+					<torbital_e>number_of_electrons+1,151</torbital_e>
+					<U_cC_nN_e>0.0000</U_cC_nN_e>
+					<U_nC_nN_e>0.0000</U_nC_nN_e>
+					<U_cN_cC_e>0.0000</U_cN_cC_e>
+					<multipoles_n>MP_FILES/CNP_n.mps</multipoles_n>
+					<multipoles_h>MP_FILES/CNP_h.mps</multipoles_h>
+					<multipoles_e>MP_FILES/CNP_e.mps</multipoles_e>
+					<map2md>0</map2md>
+					<fragments>
+						<fragment>
+							<name>LBZ_1</name>
+							<mdatoms>   1:LBZ:C1     1:LBZ:C2     1:LBZ:CC     1:LBZ:C3     1:LBZ:C4     1:LBZ:CT     1:LBZ:H1     1:LBZ:H2     1:LBZ:H3     1:LBZ:H4     1:LBZ:CN     1:LBZ:NC  </mdatoms>
+							<qmatoms>     1:C          2:C          3:C          4:C          5:C          6:C          7:H          8:H          9:H         10:H         11:C         12:N     </qmatoms>
+							<mpoles>      1:C          2:C          3:C          4:C          5:C          6:C          7:H          8:H          9:H         10:H         11:C         12:N     </mpoles>
+							<weights>      12           12           12           12           12           12           1            1            1            1            12           14     </weights>
+							<localframe>  1    3    5  </localframe>
+						</fragment>
+						<fragment>
+							<name>PYR_2</name>
+							<mdatoms>  2:PYR:CB1    2:PYR:CT1     2:PYR:NB     2:PYR:CZ    2:PYR:CB2    2:PYR:CT2    2:PYR:CN1    2:PYR:NC1    2:PYR:CN2    2:PYR:NC2  </mdatoms>
+							<qmatoms>    13:C         14:C         15:N         16:C         17:C         18:C         19:C         20:N         21:C         22:N     </qmatoms>
+							<mpoles>     13:C         14:C         15:N         16:C         17:C         18:C         19:C         20:N         21:C         22:N     </mpoles>
+							<weights>      12           12           14           12           12           12           12           14           12           14     </weights>
+							<localframe>  13   16   17 </localframe>
+						</fragment>
+						<fragment>
+							<name>RBZ_3</name>
+							<mdatoms>   3:RBZ:CC     3:RBZ:C2     3:RBZ:C3     3:RBZ:C1     3:RBZ:H2     3:RBZ:C4     3:RBZ:H3     3:RBZ:CT     3:RBZ:H1     3:RBZ:H4     3:RBZ:CN     3:RBZ:NC  </mdatoms>
+							<qmatoms>    23:C         24:C         25:C         26:C         27:H         28:C         29:H         30:C         31:H         32:H         33:C         34:N     </qmatoms>
+							<mpoles>     23:C         24:C         25:C         26:C         27:H         28:C         29:H         30:C         31:H         32:H         33:C         34:N     </mpoles>
+							<weights>      12           12           12           12           1            12           1            12           1            1            12           14     </weights>
+							<localframe>  23   26   28 </localframe>
+						</fragment>
+						<fragment>
+							<name>CBZ_4</name>
+							<mdatoms>  4:CBZ:CBC     4:CBZ:C1     4:CBZ:C3     4:CBZ:C2     4:CBZ:H1    4:CBZ:CP1     4:CBZ:H3    4:CBZ:CA1     4:CBZ:H2    4:CBZ:CP2    4:CBZ:CA2     4:CBZ:C7     4:CBZ:C4     4:CBZ:C6     4:CBZ:H7     4:CBZ:C5     4:CBZ:H4     4:CBZ:H6     4:CBZ:H5    4:CBZ:NCB  </mdatoms>
+							<qmatoms>    35:C         36:C         37:C         38:C         39:H         40:C         41:H         42:C         43:H         44:C         45:C         46:C         47:C         48:C         49:H         50:C         51:H         52:H         53:H         54:N     </qmatoms>
+							<mpoles>     35:C         36:C         37:C         38:C         39:H         40:C         41:H         42:C         43:H         44:C         45:C         46:C         47:C         48:C         49:H         50:C         51:H         52:H         53:H         54:N     </mpoles>
+							<weights>      12           12           12           12           1            12           1            12           1            12           12           12           12           12           1            12           1            1            1            14     </weights>
+							<localframe>  35   48   54 </localframe>
+						</fragment>
+						<fragment>
+							<name>BEN_5</name>
+							<mdatoms>  5:BEN:CBZ     5:BEN:C1     5:BEN:C5     5:BEN:C2     5:BEN:H1     5:BEN:C4     5:BEN:H5     5:BEN:C3     5:BEN:H2     5:BEN:H4     5:BEN:H3  </mdatoms>
+							<qmatoms>    55:C         56:C         57:C         58:C         59:H         60:C         61:H         62:C         63:H         64:H         65:H     </qmatoms>
+							<mpoles>     55:C         56:C         57:C         58:C         59:H         60:C         61:H         62:C         63:H         64:H         65:H     </mpoles>
+							<weights>      12           12           12           12           1            12           1            12           1            1            1      </weights>
+							<localframe>  55   58   60 </localframe>
+						</fragment>
+					</fragments>
+				</segment>
+			</segments>
+		</molecule>
+                <molecule>
+                        <name>H2O</name>
+                        <mdname>SOL</mdname>
+                        <segments>
+                                <segment>
+                                        <name>H2O</name>
+                                        <qmcoords>QC_FILES/H2O.xyz</qmcoords>
+                                        <orbitals>QC_FILES/your_file_with.fort7</orbitals>
+                                        <basisset>INDO</basisset>
+                                        <torbital_h>number_of_electrons,150</torbital_h>
+                                        <U_cC_nN_h>0.0000</U_cC_nN_h>
+                                        <U_nC_nN_h>0.0000</U_nC_nN_h>
+                                        <U_cN_cC_h>0.0000</U_cN_cC_h>
+                                        <torbital_e>number_of_electrons+1,151</torbital_e>
+                                        <U_cC_nN_e>0.0000</U_cC_nN_e>
+                                        <U_nC_nN_e>0.0000</U_nC_nN_e>
+                                        <U_cN_cC_e>0.0000</U_cN_cC_e>
+                                        <multipoles_n>MP_FILES/H2O_n.mps</multipoles_n>
+                                        <multipoles_h>MP_FILES/H2O_h.mps</multipoles_h>
+                                        <multipoles_e>MP_FILES/H2O_e.mps</multipoles_e>
+                                        <map2md>0</map2md>
+                                        <fragments>
+                                                <fragment>
+                                                        <name>SOL_1</name>
+                                                        <mdatoms>   1:SOL:OW    1:SOL:HW1    1:SOL:HW2  </mdatoms>
+                                                        <qmatoms>     1:O          2:H          3:H     </qmatoms>
+                                                        <mpoles>      1:O          2:H          3:H     </mpoles>
+                                                        <weights>      16           1            1      </weights>
+                                                        <localframe>  1    2    3  </localframe>
+                                                </fragment>
+                                        </fragments>
+                                </segment>
+                        </segments>
+                </molecule>
+                <molecule>
+                        <name>AA</name>
+                        <mdname>AA</mdname>
+                        <segments>
+                                <segment>
+                                        <name>AA</name>
+                                        <qmcoords>QC_FILES/AA.xyz</qmcoords>
+                                        <orbitals>QC_FILES/your_file_with.fort7</orbitals>
+                                        <basisset>INDO</basisset>
+                                        <torbital_h>number_of_electrons,150</torbital_h>
+                                        <U_cC_nN_h>0.0000</U_cC_nN_h>
+                                        <U_nC_nN_h>0.0000</U_nC_nN_h>
+                                        <U_cN_cC_h>0.0000</U_cN_cC_h>
+                                        <torbital_e>number_of_electrons+1,151</torbital_e>
+                                        <U_cC_nN_e>0.0000</U_cC_nN_e>
+                                        <U_nC_nN_e>0.0000</U_nC_nN_e>
+                                        <U_cN_cC_e>0.0000</U_cN_cC_e>
+                                        <multipoles_n>MP_FILES/AA_n.mps</multipoles_n>
+                                        <multipoles_h>MP_FILES/AA_h.mps</multipoles_h>
+                                        <multipoles_e>MP_FILES/AA_e.mps</multipoles_e>
+                                        <map2md>0</map2md>
+                                        <fragments>
+                                                <fragment>
+                                                        <name>DON_1</name>
+                                                        <mdatoms>   1:DON:C1     1:DON:O1     1:DON:C2    1:DON:H1     1:DON:O2   </mdatoms>
+                                                        <qmatoms>     1:C          2:O          3:C          6:H          7:O     </qmatoms>
+                                                        <mpoles>      1:C          2:O          3:C          6:H          7:O     </mpoles>
+                                                        <weights>      12           16           12           1            16      </weights>
+                                                        <localframe>  1    2    3  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>DON_2</name>
+                                                        <mdatoms>   1:DON:C3    1:DON:O4     1:DON:H3   </mdatoms>
+                                                        <qmatoms>      4:C        10:O         11:H     </qmatoms>
+                                                        <mpoles>       4:C        10:O         11:H     </mpoles>
+                                                        <weights>      12           16           1      </weights>
+                                                        <localframe>  4    10    11  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>DON_3</name>
+                                                        <mdatoms>   1:DON:C4    1:DON:O3     1:DON:H2       </mdatoms>
+                                                        <qmatoms>     5:C          8:O          9:H         </qmatoms>
+                                                        <mpoles>      5:C          8:O          9:H         </mpoles>
+                                                        <weights>      12           16           1          </weights>
+                                                        <localframe>  5    8    9  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>DON_4</name>
+                                                        <mdatoms>    1:DON:C5     1:DON:O5     1:DON:H5     </mdatoms>
+                                                        <qmatoms>      12:C         14:O         15:H       </qmatoms>
+                                                        <mpoles>       12:C         14:O         15:H       </mpoles>
+                                                        <weights>       12           16            1      </weights>
+                                                        <localframe>  12    14    15  </localframe>
+						</fragment>
+                                                <fragment>
+                                                        <name>DON_5</name>
+                                                        <mdatoms>  1:DON:H4        </mdatoms>
+                                                        <qmatoms>    13:H          </qmatoms>
+                                                        <mpoles>     13:H          </mpoles>
+                                                        <weights>      1         </weights>
+                                                        <localframe>  13  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>DON_6</name>
+                                                        <mdatoms>   1:DON:C6          1:DON:O6     1:DON:H8  </mdatoms>
+                                                        <qmatoms>    16:C              19:O         20:H     </qmatoms>
+                                                        <mpoles>     16:C              19:O         20:H     </mpoles>
+                                                        <weights>     12                16           1      </weights>
+                                                        <localframe>  16    19    20  </localframe>
+						</fragment>
+                                                <fragment>
+                                                        <name>DON_7</name>
+                                                        <mdatoms>     1:DON:H6     1:DON:H7       </mdatoms>
+                                                        <qmatoms>      17:H         18:H          </qmatoms>
+                                                        <mpoles>       17:H         18:H          </mpoles>
+                                                        <weights>       1            1           </weights>
+                                                        <localframe>  17    18   </localframe>
+                                                </fragment>
+                                        </fragments>
+                                </segment>
+                        </segments>
+                </molecule>
+                <molecule>
+                        <name>HA_rad</name>
+                        <mdname>HA_rad</mdname>
+                        <segments>
+                                <segment>
+                                        <name>HA_rad</name>
+                                        <qmcoords>QC_FILES/HA_rad.xyz</qmcoords>
+                                        <orbitals>QC_FILES/your_file_with.fort7</orbitals>
+                                        <basisset>INDO</basisset>
+                                        <torbital_h>number_of_electrons,150</torbital_h>
+                                        <U_cC_nN_h>0.0000</U_cC_nN_h>
+                                        <U_nC_nN_h>0.0000</U_nC_nN_h>
+                                        <U_cN_cC_h>0.0000</U_cN_cC_h>
+                                        <torbital_e>number_of_electrons+1,151</torbital_e>
+                                        <U_cC_nN_e>0.0000</U_cC_nN_e>
+                                        <U_nC_nN_e>0.0000</U_nC_nN_e>
+                                        <U_cN_cC_e>0.0000</U_cN_cC_e>
+                                        <multipoles_n>MP_FILES/HA_rad_n.mps</multipoles_n>
+                                        <multipoles_h>MP_FILES/HA_rad_h.mps</multipoles_h>
+                                        <multipoles_e>MP_FILES/HA_rad_e.mps</multipoles_e>
+                                        <map2md>0</map2md>
+                                        <fragments>
+                                                <fragment>
+                                                        <name>CUF_1</name>
+                                                        <mdatoms>   1:CUF:C1     1:CUF:O1     1:CUF:C2     1:CUF:C3     1:CUF:H1    1:CUF:O2      1:CUF:O4     </mdatoms>
+                                                        <qmatoms>     1:C          2:O          3:C          4:C          6:H          7:O         10:O        </qmatoms>
+                                                        <mpoles>      1:C          2:O          3:C          4:C          6:H          7:O         10:O        </mpoles>
+                                                        <weights>      12           16           12           12           1            16           16        </weights>
+                                                        <localframe>  1    3    4  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>CUF_2</name>
+                                                        <mdatoms>   1:CUF:C4    1:CUF:O3     1:CUF:H2    </mdatoms>
+                                                        <qmatoms>     5:C          8:O          9:H      </qmatoms>
+                                                        <mpoles>      5:C          8:O          9:H      </mpoles>
+                                                        <weights>      12           16           1       </weights>
+                                                        <localframe>  5    8    9  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>CUF_3</name>
+                                                        <mdatoms>   1:CUF:C5          1:CUF:O5     1:CUF:H4      </mdatoms>
+                                                        <qmatoms>     11:C              13:O         14:H        </qmatoms>
+                                                        <mpoles>      11:C              13:O         14:H        </mpoles>
+                                                        <weights>      12                 16           1         </weights>
+                                                        <localframe>  11    13    14 </localframe>
+						</fragment>
+                                                <fragment>
+                                                        <name>CUF_4</name>
+                                                        <mdatoms>        1:CUF:H3           </mdatoms>
+                                                        <qmatoms>          12:H             </qmatoms>
+                                                        <mpoles>           12:H             </mpoles>
+                                                        <weights>            1              </weights>
+                                                        <localframe>  12  </localframe>
+                                                </fragment>
+
+                                                <fragment>
+                                                        <name>CUF_5</name>
+                                                        <mdatoms>   1:CUF:C6        1:CUF:O6     1:CUF:H7  </mdatoms>
+                                                        <qmatoms>    15:C             18:O         19:H     </qmatoms>
+                                                        <mpoles>     15:C             18:O         19:H     </mpoles>
+                                                        <weights>     12               16           1      </weights>
+                                                        <localframe>  15    18    19  </localframe>
+                                                </fragment>
+                                                <fragment>
+                                                        <name>CUF_6</name>
+                                                        <mdatoms> 1:BUF:H5     1:BUF:H6       </mdatoms>
+                                                        <qmatoms>  16:H         17:H          </qmatoms>
+                                                        <mpoles>   16:H         17:H          </mpoles>
+                                                        <weights>   1            1           </weights>
+                                                        <localframe>  16   17   </localframe>
+                                                </fragment>
+
+                                        </fragments>
+                                </segment>
+                        </segments>
+                </molecule>
+	</molecules>
+</topology>
