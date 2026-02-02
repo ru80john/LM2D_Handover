@@ -1,0 +1,35 @@
+<options>
+    <jobwriter>
+        <keys>mps.background mps.chrg</keys>
+        <states>n h e</states>
+        <single_id>100</single_id>
+        <kmc_cutoff>3.0</kmc_cutoff>
+    </jobwriter>
+  <xqmultipole>
+    <multipoles>system.xml</multipoles>
+    <control>
+      <job_file>jobwriter.mps.chrg.xml</job_file>
+      <emp_file>jobwriter.mps.background.tab</emp_file>
+      <pdb_check>0</pdb_check>
+      <split_dpl>0</split_dpl>
+      <dpl_spacing>1e-4</dpl_spacing>
+    </control>
+    <coulombmethod>
+      <method help="Currently only cut-off supported">cut-off</method>
+      <cutoff1 help="Full-interaction radius cut-off" unit="nm">3.0</cutoff1>
+      <cutoff2 help="Radius of electrostatic buffer" unit="nm">5.0</cutoff2>
+    </coulombmethod>
+    <tholemodel>
+      <induce help="Induce - or not">1</induce>
+      <induce_intra_pair help="Induce mutually within the charged cluster">1</induce_intra_pair>
+      <exp_damp help="Thole sharpness parameter">0.39</exp_damp>
+      <scaling help="Bond scaling parameters, currently not used">0.25 0.50 0.75</scaling>
+    </tholemodel>
+    <convergence>
+      <wSOR_N help="SOR mixing factor for overall neutral clusters">0.30</wSOR_N>
+      <wSOR_C help="SOR mixing factor for overall charged clusters">0.30</wSOR_C>
+      <max_iter help="Maximum number of iterations">1024</max_iter>
+      <tolerance help="Relative tolerance as convergence criterion">0.001</tolerance>
+    </convergence>
+  </xqmultipole>
+</options>

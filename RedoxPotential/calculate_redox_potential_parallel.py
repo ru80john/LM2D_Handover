@@ -37,7 +37,7 @@ SYSTEM_TOP  = MD_DIR / 'system.top'
 SYSTEM_TPR  = MD_DIR / 'system.tpr'
 SYSTEM_GRO  = MD_DIR / 'system.gro'
 MAP_MDP     = Path('map.mdp')
-OPTION_XML  = Path('option1.xml')
+OPTION_XML  = Path('options.xml')
 
 # --------------------------------------------------
 # helper functions (mostly copied from original script)
@@ -219,7 +219,7 @@ def run_single_idx(idx: int, initial_dir: str):
     subprocess.run(['python', f'{initial_dir}/filter.py', radical_name], cwd=dir_path, check=True)
     # Run VOTCA
     shutil.copy(mapping / 'system.xml', dir_path / 'system.xml')
-    subprocess.run(['ctp_parallel', '-o', f'{initial_dir}/option2.xml', '-f', 'state.sql', '-e', 'xqmultipole', '-t', str(NTOMP)], cwd=dir_path, check=True)
+    subprocess.run(['ctp_parallel', '-o', f'{initial_dir}/{str(OPTION_XML)}', '-f', 'state.sql', '-e', 'xqmultipole', '-t', str(NTOMP)], cwd=dir_path, check=True)
 
     return f'{calc_molecule}_{idx} finished'
 
