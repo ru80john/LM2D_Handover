@@ -4,20 +4,20 @@ import subprocess
 from pathlib import Path
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing as mp
-
 import MDAnalysis as mda
 
 # ---------------------------
 # user‑configurable constants
 # ---------------------------
+catalyst_name = 'CNP'      # name of the catalyst
 calc_molecule = 'AA'      # molecule type to be (de‑)protonated
 radical_name  = 'HA_rad'  # name for the radical species
 calc_idx      = [num for num in range(136)]       # list of indices (starting from 0) to process
-delete_atom_index = 11  # index of the atom to be deleted (starting from 1)
+#calc_idx = [0,1,2,3]
 
 # Each mdrun will spawn this many OpenMP threads.
 #   NTOMP  ×  MAX_WORKERS  ≦  available CPU cores (48 in your case)
-NTOMP        = 2
+NTOMP        = 12
 MAX_WORKERS  = 4
 
 # tables for dihedral interactions (leave '' if none)
@@ -30,14 +30,7 @@ table_files = (
 table_files = [string for string in table_files.split() if string]
 
 # paths for static input files
-MD_DIR      = Path('MD_FILES')
-QC_DIR      = Path('QC_FILES')
-MP_DIR      = Path('MP_FILES')
-SYSTEM_TOP  = MD_DIR / 'system.top'
-SYSTEM_TPR  = MD_DIR / 'system.tpr'
-SYSTEM_GRO  = MD_DIR / 'system.gro'
-MAP_MDP     = Path('map.mdp')
-OPTION_XML  = Path('options.xml')
+initial_dir = Path(os.path.dirname(os.path.abspath(__file__)))
 
 # --------------------------------------------------
 # helper functions (mostly copied from original script)
@@ -110,77 +103,44 @@ def pbc_whole(tpr_file, gro_file, output_dir):
     traj.trajectory.add_transformations(*transforms)
     traj.atoms.write(f'{output_dir}/whole.gro')
 
-def gen_gro_and_top_files(traj, molecule_list, calc_molgroup, calc_idx):
-    universe_atom = traj.atoms[[]]  # Empty atom group
-    new_molecule_list = []
-    for mol_name, number in molecule_list:
-        if mol_name == calc_molecule:
-            # Create a copy of calc_molgroup to avoid modifying the original
-            modified_molgroup = [mol for mol in calc_molgroup]
-            
-            # Deprotonate the molecule at calc_idx (remove specific H atom)
-            deprotonated_mol = calc_molgroup[calc_idx] - calc_molgroup[calc_idx][delete_atom_index - 1]
-            modified_molgroup[calc_idx] = deprotonated_mol
-            
-            # Add all molecules to the universe
-            for mol in modified_molgroup:
-                universe_atom += mol
-                
-            # Update molecule_list according to which molecule was deprotonated
-            if calc_idx == 0:
-                new_molecule_list.append((radical_name, 1))
-                new_molecule_list.append((calc_molecule, number - 1))
-            elif calc_idx == len(calc_molgroup) - 1:
-                new_molecule_list.append((calc_molecule, number - 1))
-                new_molecule_list.append((radical_name, 1))
-            else:
-                new_molecule_list.append((calc_molecule, calc_idx))
-                new_molecule_list.append((radical_name, 1))
-                new_molecule_list.append((calc_molecule, number - calc_idx - 1))
-        else:
-            # Add other molecule types directly
-            universe_atom += traj.select_atoms(f"moltype {mol_name}")
-            new_molecule_list.append((mol_name, number))
-    
-    return universe_atom, new_molecule_list
-
 # --------------------------------------------------
 # the heavy job: executed in a *separate* process for each idx
 # --------------------------------------------------
 
-def run_single_idx(idx: int, initial_dir: str):
-    # Re‑parse topology & trajectory inside the child process to avoid pickling big objects
-    traj = mda.Universe(str(SYSTEM_TPR), str(SYSTEM_GRO))
-    calc_atoms     = traj.select_atoms(f'moltype {calc_molecule}')
-    calc_molgroup  = calc_atoms.split('molecule')
+def run(Results_dir: int, idx: str):
+    # ------------------ working directory ----------------
+    work_dir = Path(os.path.join(Results_dir, f'{calc_molecule}_{idx}'))
+    # move everything to the DOS directory
+    DOS_dir = work_dir / 'DOS'
+    DOS_dir.mkdir(parents=True, exist_ok=True)
+    os.system(f'mv {work_dir}/* {DOS_dir}')
+    # Create TI
+    TI_dir = work_dir / 'TI'
+    shutil.rmtree(TI_dir, ignore_errors=True)
+    TI_dir.mkdir(parents=True, exist_ok=True)
+    # Extract molecules
+    subprocess.run(['python', f'{initial_dir}/extract_molecule.py', catalyst_name, radical_name, DOS_dir / 'mapping' / 'map.tpr', DOS_dir / 'mapping' / 'map.gro', TI_dir / 'extract.gro'], cwd=initial_dir, check=True)
+    # Extract top information
+    SYSTEM_TOP = DOS_dir / 'mapping' / f'{calc_molecule}_{idx}.top'
     defaults_sec   = extract_defaults_section(SYSTEM_TOP)
     mol_list       = extract_molecules_section(SYSTEM_TOP)
-
-    # ---------------- working directory ----------------
-    dir_path = Path(initial_dir) / f'Results_{calc_molecule}' / f'{calc_molecule}_{idx}'
-    shutil.rmtree(dir_path, ignore_errors=True)
-    dir_path.mkdir(parents=True, exist_ok=True)
-
-    # ------------ generate new .gro / .top -------------
-    new_atoms, new_mol_list = gen_gro_and_top_files(traj, mol_list, calc_molgroup, idx)
-    new_atoms.write(dir_path / f'{calc_molecule}_{idx}.gro')
+    new_mol_list   = [molecule for molecule in mol_list if molecule[0] == radical_name or molecule[0] == catalyst_name]
+    ## ------------ generate new .gro / .top -------------
     top_txt = defaults_sec + '\n' + create_system_and_molecules(f'{calc_molecule}_{idx}', new_mol_list)
-    write_file(dir_path / f'{calc_molecule}_{idx}.top', top_txt)
-
-    # -------------- copy static inputs -----------------
-    shutil.copytree(MD_DIR / 'system.ff', dir_path / 'system.ff', dirs_exist_ok=True)
-    shutil.copy(MAP_MDP, dir_path / 'map.mdp')
-
+    write_file(TI_dir / 'extract.top', top_txt)
+    # Copy files
+    shutil.copytree(DOS_dir / 'mapping' / 'system.ff', TI_dir / 'system.ff', dirs_exist_ok=True)
+    shutil.copy(initial_dir / 'map.mdp', TI_dir / 'map.mdp')
     # ------------------- grompp ------------------------
     subprocess.run([
         'gmx_mpi', 'grompp',
         '-f', 'map.mdp',
-        '-c', f'{calc_molecule}_{idx}.gro',
-        '-p', f'{calc_molecule}_{idx}.top',
+        '-c', 'extract.gro',
+        '-p', 'extract.top',
         '-o', 'map.tpr',
         '-maxwarn', '5'
-    ], cwd=dir_path, check=True)
-
+    ], cwd=TI_dir, check=True)
+#
     # ------------------- mdrun -------------------------
     mdrun_cmd = [
         'gmx_mpi', 'mdrun',
@@ -192,50 +152,48 @@ def run_single_idx(idx: int, initial_dir: str):
     if table_files:
         mdrun_cmd.append('-tableb')
         mdrun_cmd.extend(table_files)
-    subprocess.run(mdrun_cmd, cwd=dir_path, check=True)
-
-    # -------------- post‑processing --------------------
-    pbc_whole(dir_path / 'map.tpr', dir_path / 'map.gro', dir_path)
+    subprocess.run(mdrun_cmd, cwd=TI_dir, check=True)
 
     # mapping directory
-    mapping = dir_path / 'mapping'
+    mapping = TI_dir / 'mapping'
     mapping.mkdir(exist_ok=True)
-    os.system(f'mv {dir_path}/* {mapping}')
-    shutil.rmtree(f'{dir_path}/sysyem.ff', ignore_errors=True)
-
-    shutil.copytree(QC_DIR, mapping / 'QC_FILES', dirs_exist_ok=True)
-    shutil.copy('system.xml', mapping / 'system.xml')
-
+    os.system(f'mv {TI_dir}/* {mapping}')
+    shutil.rmtree(TI_dir / 'sysyem.ff', ignore_errors=True)
+    shutil.copytree(DOS_dir / 'mapping' / 'QC_FILES', mapping / 'QC_FILES', dirs_exist_ok=True)
+    shutil.copy(DOS_dir / 'system.xml', mapping / 'system.xml')
+    pbc_whole(mapping / 'map.tpr', mapping / 'map.gro', mapping)
+#
     subprocess.run(['ctp_map', '-t', 'map.tpr', '-c', 'whole.gro', '-s', 'system.xml', '-f', 'state.sql'], cwd=mapping, check=True)
-
-    # back to parent dir for ctp_run & filtering
-    #if os.path.exists(dir_path / 'state.sql'):
-    #    os.remove(dir_path / 'state.sql')
-    shutil.copy(mapping / 'state.sql', dir_path / 'state.sql')
-    shutil.copytree(initial_dir/MP_DIR, dir_path / 'MP_FILES', dirs_exist_ok=True)
-    subprocess.run(['ctp_run', '-v', '-e', 'jobwriter', '-o', f'{initial_dir}/{str(OPTION_XML)}', '-f', 'state.sql'], cwd=dir_path, check=True)
-
-    shutil.copy(dir_path / 'jobwriter.mps.chrg.xml', dir_path / 'backup.xml')
-    subprocess.run(['python', f'{initial_dir}/filter.py', radical_name], cwd=dir_path, check=True)
-    # Run VOTCA
-    shutil.copy(mapping / 'system.xml', dir_path / 'system.xml')
-    subprocess.run(['ctp_parallel', '-o', f'{initial_dir}/{str(OPTION_XML)}', '-f', 'state.sql', '-e', 'xqmultipole', '-t', str(NTOMP)], cwd=dir_path, check=True)
-
-    return f'{calc_molecule}_{idx} finished'
+#
+    shutil.copy(mapping / 'state.sql', TI_dir / 'state.sql')
+    shutil.copy(mapping / 'system.xml', TI_dir / 'system.xml')
+    #shutil.copy(initial_dir / 'options.xml', TI_dir / 'options.xml')
+    os.system(f'cp {initial_dir}/package* {TI_dir}')
+    subprocess.run(['ctp_run', '-o', initial_dir / 'options.xml', '-e', 'neighborlist','-f', 'state.sql'], cwd=TI_dir, check=True)
+    subprocess.run(['ctp_parallel', '-o', initial_dir / f'option_{catalyst_name}.xml', '-e', 'edft', '-j', 'write', '-f', 'state.sql'], cwd=TI_dir, check=True)
+    subprocess.run(['ctp_parallel', '-o', initial_dir / f'options.xml', '-e', 'idft', '-j', 'write', '-f', 'state.sql'], cwd=TI_dir, check=True)
+    os.system(f'mv {TI_dir}/edft_{catalyst_name}.jobs {TI_dir}/backup.edft')
+    os.system(f'mv {TI_dir}/idft.jobs {TI_dir}/backup.idft')
+    subprocess.run(['python', f'{initial_dir}/filter.py', f'{radical_name}', f'{catalyst_name}'], cwd=TI_dir, check=True)
+    # Submit the job
+    subprocess.run(['ctp_parallel', '-o', initial_dir / f'option_{catalyst_name}.xml' ,'-f' ,'state.sql', '-e', 'edft', '-j', 'run', '-t', '1', '-c', '1', '-m', '-1'], cwd=TI_dir, check=True)
+    subprocess.run(['ctp_parallel', '-o', initial_dir / f'option_{radical_name}.xml' ,'-f' ,'state.sql', '-e', 'edft', '-j', 'run', '-t', '1', '-c', '1', '-m', '-1'], cwd=TI_dir, check=True)
+    subprocess.run(['ctp_parallel', '-o', initial_dir / 'options.xml' ,'-f' ,'state.sql', '-e', 'idft', '-j', 'run', '-t', '1', '-c', '1', '-m', '-1'], cwd=TI_dir, check=True)
 
 # --------------------------------------------------
 # main driver
 # --------------------------------------------------
 
 def main():
-    initial_dir = os.getcwd()
-    (Path(initial_dir) / f'Results_{calc_molecule}').mkdir(exist_ok=True)
+    current_directory = os.getcwd()
+    Results_dir = os.path.join(current_directory, f'Results_{calc_molecule}')
+    #for idx in calc_idx:
+    #    run(Results_dir, idx)
 
     ctx = mp.get_context('spawn')
     with ProcessPoolExecutor(max_workers=MAX_WORKERS, mp_context=ctx) as pool:
-        futures = [pool.submit(run_single_idx, idx, initial_dir) for idx in calc_idx]
+        futures = [pool.submit(run, Results_dir, idx) for idx in calc_idx]
         for fut in as_completed(futures):
             print(fut.result())
-
 if __name__ == '__main__':
     main()

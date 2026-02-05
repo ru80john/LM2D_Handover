@@ -1,0 +1,31 @@
+<options>
+<neighborlist help="Constructs a list of neighboring conjugated segments" label="calc:neighborlist" section="sec:neighborlist">
+
+        <constant default="0.5" help="If provided, this value is used for all segment types" unit="nm">0.7</constant>
+
+        <segments help="A pair of segment types">
+                <type help="Types of two segments. For types A and B this can be A A, A B or B B">HA_rad CNP</type>
+                <cutoff help="Cutoff radius for centers of mass of rigid fragments" unit="nm">0.7</cutoff>
+                <fragments help="list of active fragments" default="*">*</fragments>
+        </segments>
+
+        <file help="File with the pair list: pairID seg1ID seg2ID seg1Type seg2Type " default="">
+        </file>
+
+</neighborlist>
+
+<!-- ctp_run -e idft -f state.db -o options.xml -->
+<idft help="Projection method for electronic couplings. Requires edft otput" section="sec:idft">
+    <job>
+        <file help="Job control file (full path)">idft.jobs</file>
+    </job>
+    <tasks help="What to do" default="input,run,parse,trim,project">input,run,parse,trim,project</tasks>
+    <store help="What to store" default="orbitals,overlap,integrals">orbitals,overlap,integrals</store>
+    <dftpackage help="XML file with options for the QM package">package_idft.xml</dftpackage>
+    <package help="XML file with options for the QM package">package_idft.xml</package>
+    <degeneracy help="Criterium for the degeneracy of two levels" unit="eV" default="0">0</degeneracy>
+    <levels help="Output between HOMO, ..., HOMO-levels; LUMO, ..., LUMO+levels" default="3">1</levels>
+    <trim help="Use trim*occupied of virtual orbitals" default="2">2</trim>
+</idft>
+
+</options>

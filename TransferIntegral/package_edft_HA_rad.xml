@@ -1,0 +1,15 @@
+<package>
+    <name>gaussian</name>
+    <executable>g16</executable>
+    <checkpoint></checkpoint>
+    <scratch></scratch>
+
+    <charge>-1</charge>
+    <spin>1</spin>
+    <options># pop=minimal cam-b3lyp/6-311g(d,p) scf=tight punch=mo nosymm test</options>
+    <memory>60Gb</memory>
+    <threads>12</threads>
+
+    <cleanup></cleanup>
+</package>
+
